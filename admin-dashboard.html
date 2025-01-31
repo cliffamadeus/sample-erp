@@ -169,19 +169,36 @@
       `;
     });
 
-    // Populate Recent Logins Table
+    // Function to format elapsed time in hours and minutes
+    function formatTimeElapsed(seconds) {
+    const hours = Math.floor(seconds / 3600); // 1 hour = 3600 seconds
+    const minutes = Math.floor((seconds % 3600) / 60); // 1 minute = 60 seconds
+
+    if (hours > 0 && minutes > 0) {
+        return `${hours} hours ${minutes} minutes ago`;
+    } else if (hours > 0) {
+        return `${hours} hours ago`;
+    } else if (minutes > 0) {
+        return `${minutes} minutes ago`;
+    } else {
+        return "Just now";
+    }
+    }
+
+    // Example usage in the Recent Logins Table
     const recentLoginsTable = document.getElementById("recentLoginsTable");
     const allLogins = [...admins, ...users].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     allLogins.forEach((login) => {
-      const timeElapsed = Math.floor((new Date() - new Date(login.timestamp)) / 1000); // Time in seconds
-      recentLoginsTable.innerHTML += `
+    const timeElapsed = Math.floor((new Date() - new Date(login.timestamp)) / 1000); // Time in seconds
+    const formattedTimeElapsed = formatTimeElapsed(timeElapsed); // Format time in hours and minutes
+    recentLoginsTable.innerHTML += `
         <tr>
-          <td>${login.username}</td>
-          <td>${admins.includes(login) ? "Admin" : "User"}</td>
-          <td>${login.timestamp}</td>
-          <td>${timeElapsed} seconds ago</td>
+        <td>${login.username}</td>
+        <td>${admins.includes(login) ? "Admin" : "User"}</td>
+        <td>${login.timestamp}</td>
+        <td>${formattedTimeElapsed}</td>
         </tr>
-      `;
+    `;
     });
 
     // Logout function
