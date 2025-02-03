@@ -169,8 +169,11 @@ if ($stmt = $pdo->prepare($sql)) {
     </div>
 
     <div class="container">
+
+        <!--User Accounts Datatable-->
+
         <h3>User Accounts</h3>
-        <table id="example" class="table table-bordered" style="width:100%">
+        <table id="userAccounts" class="table table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>Username</th>
@@ -189,9 +192,11 @@ if ($stmt = $pdo->prepare($sql)) {
             </tbody>
         </table>
 
+        <hr>
+        
         <h3>Recent Logins</h3>
-        <table class="table table-bordered" id="recentLoginsTable">
-            <thead>
+        <table id="recentLogin" class="table table-bordered" style="width:100%" id="recentLoginsTable">
+             <thead>
                 <tr>
                     <th>Username</th>
                     <th>Role</th>
@@ -210,17 +215,11 @@ if ($stmt = $pdo->prepare($sql)) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+
         <button class="btn btn-primary" onclick="printToPDF()">Print to PDF</button>
     </div>
-    <div class="container">
-    
-
-    </div>
-    
     <!--End Dashboard-->   
     
-    
-
 <script>
     function printToPDF() {
         // Select the entire content between Start and End Dashboard tags
@@ -262,7 +261,7 @@ if ($stmt = $pdo->prepare($sql)) {
 
     // Apply the time elapsed to the table rows
     window.onload = function() {
-        const rows = document.querySelectorAll('#recentLoginsTable tbody tr');
+        const rows = document.querySelectorAll('#recentLogin tbody tr');
         rows.forEach(row => {
             const loginTime = row.getAttribute('data-login-time');
             const timeElapsedStr = timeElapsed(loginTime);
@@ -271,7 +270,8 @@ if ($stmt = $pdo->prepare($sql)) {
     }
 
 
-    let table = new DataTable('#example');
+    let table1 = new DataTable('#userAccounts');
+    let table2 = new DataTable('#recentLogin');
 </script>
 </body>
 </html>
