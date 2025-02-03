@@ -98,3 +98,4 @@ function logout() {
   sessionStorage.removeItem("currentUser");
   window.location.href = "index.html";
 }
+

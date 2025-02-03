@@ -57,8 +57,7 @@
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
         </form>
       </div>
     </div>
@@ -139,7 +138,6 @@
 
   <!-- Logout and Print to PDF Buttons -->
   <div class="container mt-5 text-center">
-    <button class="btn btn-danger" onclick="logout()">Logout</button>
     <button class="btn btn-primary" onclick="printToPDF()">Print to PDF</button>
   </div>
 
@@ -207,12 +205,6 @@
         </tr>
       `;
     });
-
-    // Logout function
-    function logout() {
-      sessionStorage.removeItem("currentUser");
-      window.location.href = "index.html";
-    }
 
     // Print to PDF function
     function printToPDF() {
