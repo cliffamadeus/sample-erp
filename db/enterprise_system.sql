@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2025 at 07:48 AM
+-- Generation Time: Feb 10, 2025 at 07:53 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `it38c-2`
+-- Database: `enterprise_system`
 --
 
 -- --------------------------------------------------------
@@ -38,10 +38,11 @@ CREATE TABLE `login_logs` (
 --
 
 INSERT INTO `login_logs` (`id`, `user_id`, `login_time`) VALUES
-(0, 0, '2025-02-06 14:43:05'),
-(0, 0, '2025-02-06 14:44:59'),
-(0, 0, '2025-02-06 14:46:01'),
-(0, 0, '2025-02-06 14:46:16');
+(1, 1, '2025-02-03 14:46:05'),
+(2, 2, '2025-02-03 14:47:34'),
+(3, 1, '2025-02-03 14:48:18'),
+(4, 2, '2025-02-03 14:49:53'),
+(5, 1, '2025-02-03 14:56:29');
 
 -- --------------------------------------------------------
 
@@ -63,8 +64,52 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `last_login`, `created_at`) VALUES
-(0, 'admin', '$2y$10$0pwhafy8gttsL6/2rHQ8OuMd26qp9kHBvfT0SdrPoMeyREPPrq/.K', 'admin', '2025-02-06 14:46:16', '2025-02-06 06:42:42'),
-(0, 'user', '$2y$10$m8mnKAclS7kNkihE3nfK8ePQOtmqZHYfbJujrY/aAa0KWJTHRsJW6', 'user', '2025-02-06 14:46:16', '2025-02-06 06:43:48');
+(1, 'admin', '$2y$10$3oq2XMtvnxg.gLCjVifa2OiTmyqYxoXy/f33qBnUxCC5w3.2TBfg6', 'admin', '2025-02-03 14:56:29', '2025-02-03 06:45:52'),
+(2, 'user', '$2y$10$9kodXTgH7GOcJVIoDh1LxOLQuLRwWHmRMBdAWuggcR24LG1dl2hUW', 'user', '2025-02-03 14:49:53', '2025-02-03 06:47:26');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `login_logs`
+--
+ALTER TABLE `login_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `login_logs`
+--
+ALTER TABLE `login_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `login_logs`
+--
+ALTER TABLE `login_logs`
+  ADD CONSTRAINT `login_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

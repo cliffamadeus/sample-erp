@@ -50,7 +50,7 @@ if ($stmt = $pdo->prepare($sql)) {
 
 // Fetch recent logins
 $recentLogins = [];
-$sql = "SELECT u.username, u.user_type, l.login_time FROM login_logs l JOIN users u ON l.user_id = u.id ORDER BY l.login_time DESC LIMIT 10";
+$sql = "SELECT l.log_id,u.username, u.user_type, l.login_time FROM login_logs l JOIN users u ON l.user_id = u.id ORDER BY l.login_time DESC";
 if ($stmt = $pdo->prepare($sql)) {
     if ($stmt->execute()) {
         $recentLogins = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -169,8 +169,25 @@ if ($stmt = $pdo->prepare($sql)) {
     </div>
 
     <div class="container">
-
-        <!--User Accounts Datatable-->
+    <table id="userAccounts" class="table table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Registration Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($userAccounts as $user): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($user['username']); ?></td>
+                        <td><?php echo htmlspecialchars($user['user_type']); ?></td>
+                        <td><?php echo date("Y-m-d H:i:s", strtotime($user['created_at'])); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <!--User Accounts Datatable
 
         <h3>User Accounts</h3>
         <table id="userAccounts" class="table table-bordered" style="width:100%">
@@ -191,13 +208,14 @@ if ($stmt = $pdo->prepare($sql)) {
                 <?php endforeach; ?>
             </tbody>
         </table>
-
+        -->
         <hr>
         
         <h3>Recent Logins</h3>
         <table id="recentLogin" class="table table-bordered" style="width:100%" id="recentLoginsTable">
              <thead>
                 <tr>
+                    <th>No.</th>
                     <th>Username</th>
                     <th>Role</th>
                     <th>Login Timestamp</th>
@@ -207,6 +225,7 @@ if ($stmt = $pdo->prepare($sql)) {
             <tbody>
                 <?php foreach ($recentLogins as $login): ?>
                 <tr data-login-time="<?php echo htmlspecialchars($login['login_time']); ?>">
+                    <td><?php echo htmlspecialchars($login['log_id']); ?></td>
                     <td><?php echo htmlspecialchars($login['username']); ?></td>
                     <td><?php echo htmlspecialchars($login['user_type']); ?></td>
                     <td><?php echo date("Y-m-d H:i:s", strtotime($login['login_time'])); ?></td>
